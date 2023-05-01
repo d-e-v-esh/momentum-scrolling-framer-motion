@@ -36,13 +36,13 @@ const MomentumScroll = ({ children }: MomentumScrollProps): JSX.Element => {
 
   const { scrollY } = useScroll();
 
-  const transform = useTransform(
+  const negativeScrollY = useTransform(
     scrollY,
     [0, scrollableHeight],
     [0, -scrollableHeight]
   );
 
-  const physics: SpringOptions = {
+  const springPhysics: SpringOptions = {
     damping: 22,
     mass: 0.1,
     stiffness: 200,
@@ -51,13 +51,13 @@ const MomentumScroll = ({ children }: MomentumScrollProps): JSX.Element => {
     velocity: 100,
   };
 
-  const spring = useSpring(transform, physics);
+  const springNegativeScrollY = useSpring(negativeScrollY, springPhysics);
 
   return (
     <>
       <motion.div
         ref={scrollRef}
-        style={{ y: spring }}
+        style={{ y: springNegativeScrollY }}
         className="scroll-container">
         {children}
       </motion.div>
